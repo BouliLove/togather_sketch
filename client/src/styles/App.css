@@ -1,0 +1,48 @@
+/* Layout structure */
+.main-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .top-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .map-section {
+    flex: 1;
+    min-height: 300px;
+    position: sticky;
+    top: 10px;
+  }
+  
+  @media (min-width: 768px) {
+    .main-layout {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+    
+    .top-section {
+      width: 60%;
+    }
+    
+    .map-section {
+      width: 40%;
+    }
+  }
+  
+  .error-container {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: rgba(255, 107, 107, 0.1);
+    border: 1px solid var(--error);
+    border-radius: 8px;
+  }
+  
+  .error-message {
+    color: var(--error);
+    margin: 0;
+    font-weight: 600;
+  }

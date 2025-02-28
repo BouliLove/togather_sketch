@@ -1,5 +1,7 @@
 {
-    "routes": [
-      { "src": "/(.*)", "dest": "/index.html" }
-    ]
+    "rewrites": [
+      { "source": "/(.*)", "destination": "/index.html" }
+    ],
+    "buildCommand": "CI= npm run build",
+    "outputDirectory": "build"
   }
