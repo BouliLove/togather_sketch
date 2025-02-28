@@ -1,8 +1,10 @@
+// client/src/App.js
 import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import AddressForm from './components/AddressForm';
 import Map from './components/Map';
 import Results from './components/Results';
+import GoogleMapsScript from './components/GoogleMapsScript';
 import axios from 'axios';
 import './styles/App.css';
 
@@ -19,6 +21,7 @@ function App() {
   const [error, setError] = useState(null);
   const [mapCenter, setMapCenter] = useState({ lat: 48.8566, lng: 2.3522 }); // Paris center
   const [mapMarkers, setMapMarkers] = useState([]);
+  const [googleMapsLoaded, setGoogleMapsLoaded] = useState(false);
 
   // Update map markers whenever locations or results change
   useEffect(() => {
@@ -57,6 +60,11 @@ function App() {
     
     setMapMarkers(newMarkers);
   }, [locations, results]);
+
+  const handleGoogleMapsLoaded = () => {
+    console.log('Google Maps loaded in App component');
+    setGoogleMapsLoaded(true);
+  };
 
   const handleAddLocation = () => {
     if (locations.length < 10) {
@@ -139,6 +147,7 @@ function App() {
 
   return (
     <div className="container">
+      <GoogleMapsScript onLoad={handleGoogleMapsLoaded} />
       <Header />
       
       <div className="main-layout">
@@ -152,6 +161,7 @@ function App() {
             onVenueTypeChange={handleVenueTypeChange}
             onSubmit={handleSubmit}
             loading={loading}
+            googleMapsLoaded={googleMapsLoaded}
           />
           
           {results && (
@@ -163,6 +173,7 @@ function App() {
           <Map 
             center={mapCenter}
             markers={mapMarkers}
+            googleMapsLoaded={googleMapsLoaded}
           />
         </div>
       </div>
@@ -177,6 +188,13 @@ function App() {
       {!loading && !error && validLocationCount < locations.length && (
         <div className="helper-message">
           <p>Please enter complete addresses for all starting points using the autocomplete suggestions.</p>
+        </div>
+      )}
+      
+      {/* Show loading message if Google Maps is not loaded yet */}
+      {!googleMapsLoaded && (
+        <div className="helper-message">
+          <p>Loading Google Maps... If the map doesn't appear, please check your API key configuration.</p>
         </div>
       )}
     </div>

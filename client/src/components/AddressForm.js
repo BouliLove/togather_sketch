@@ -1,3 +1,4 @@
+// client/src/components/AddressForm.js
 import React, { useRef, useEffect } from 'react';
 import SketchContainer from './SketchContainer';
 import '../styles/AddressForm.css';
@@ -21,22 +22,33 @@ function AddressForm({
   onLocationChange, 
   onVenueTypeChange, 
   onSubmit,
-  loading
+  loading,
+  googleMapsLoaded
 }) {
   // Create refs for input fields to attach autocomplete
   const inputRefs = useRef({});
 
   // Set up Google Places Autocomplete for address fields
   useEffect(() => {
-    if (!window.google || !window.google.maps || !window.google.maps.places) {
-      console.error('Google Maps Places API not loaded');
+    if (!googleMapsLoaded) {
+      console.log('Google Maps not loaded yet, autocomplete will be initialized once loaded');
       return;
     }
+
+    if (!window.google || !window.google.maps || !window.google.maps.places) {
+      console.error('Google Maps Places API not loaded correctly');
+      return;
+    }
+
+    console.log('Setting up autocomplete for address fields');
 
     // Setup autocomplete for each input field
     locations.forEach(location => {
       const inputRef = inputRefs.current[location.id];
-      if (!inputRef) return;
+      if (!inputRef) {
+        console.log(`Input ref for location ${location.id} not found`);
+        return;
+      }
 
       // Clear any existing autocomplete instances
       if (inputRef.autocomplete) {
@@ -45,37 +57,45 @@ function AddressForm({
         inputRef.autocomplete = null;
       }
 
-      // Create new autocomplete instance
-      const autocomplete = new window.google.maps.places.Autocomplete(inputRef, {
-        componentRestrictions: { country: 'fr' }, // Restrict to France
-        fields: ['address_components', 'formatted_address', 'geometry'],
-        types: ['address'],
-        bounds: new window.google.maps.LatLngBounds(
-          new window.google.maps.LatLng(48.8156, 2.2240), // SW corner of Paris
-          new window.google.maps.LatLng(48.9021, 2.4699)  // NE corner of Paris
-        ),
-        strictBounds: true
-      });
-
-      // Store the autocomplete instance
-      inputRef.autocomplete = autocomplete;
-
-      // Handle place selection
-      autocomplete.addListener('place_changed', () => {
-        const place = autocomplete.getPlace();
-        
-        if (!place.geometry) {
-          console.warn("No geometry returned for this place");
-          return;
-        }
-
-        // Update location with the selected address and its geocoded position
-        onLocationChange(location.id, 'address', place.formatted_address);
-        onLocationChange(location.id, 'geocoded', {
-          lat: place.geometry.location.lat(),
-          lng: place.geometry.location.lng()
+      try {
+        // Create new autocomplete instance
+        const autocomplete = new window.google.maps.places.Autocomplete(inputRef, {
+          componentRestrictions: { country: 'fr' }, // Restrict to France
+          fields: ['address_components', 'formatted_address', 'geometry'],
+          types: ['address'],
+          bounds: new window.google.maps.LatLngBounds(
+            new window.google.maps.LatLng(48.8156, 2.2240), // SW corner of Paris
+            new window.google.maps.LatLng(48.9021, 2.4699)  // NE corner of Paris
+          ),
+          strictBounds: true
         });
-      });
+
+        // Store the autocomplete instance
+        inputRef.autocomplete = autocomplete;
+
+        // Handle place selection
+        autocomplete.addListener('place_changed', () => {
+          const place = autocomplete.getPlace();
+          
+          if (!place.geometry) {
+            console.warn("No geometry returned for this place");
+            return;
+          }
+
+          console.log(`Selected place for location ${location.id}:`, place.formatted_address);
+
+          // Update location with the selected address and its geocoded position
+          onLocationChange(location.id, 'address', place.formatted_address);
+          onLocationChange(location.id, 'geocoded', {
+            lat: place.geometry.location.lat(),
+            lng: place.geometry.location.lng()
+          });
+        });
+
+        console.log(`Autocomplete setup complete for location ${location.id}`);
+      } catch (error) {
+        console.error('Error setting up autocomplete:', error);
+      }
     });
 
     // Cleanup function
@@ -87,7 +107,7 @@ function AddressForm({
         }
       });
     };
-  }, [locations, onLocationChange]);
+  }, [locations, onLocationChange, googleMapsLoaded]);
 
   return (
     <SketchContainer className="form-container">
@@ -109,7 +129,7 @@ function AddressForm({
               <input 
                 ref={el => inputRefs.current[location.id] = el}
                 type="text" 
-                className="address-input sketch-input" 
+                className={`address-input sketch-input ${location.geocoded ? 'geocoded' : ''}`}
                 placeholder="Enter address in Paris"
                 value={location.address}
                 onChange={(e) => onLocationChange(location.id, 'address', e.target.value)}
@@ -179,7 +199,7 @@ function AddressForm({
           <button 
             type="submit" 
             className="compute-button"
-            disabled={loading}
+            disabled={loading || !googleMapsLoaded}
           >
             {loading ? (
               <>
