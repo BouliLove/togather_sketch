@@ -46,3 +46,17 @@
     margin: 0;
     font-weight: 600;
   }
+  
+  .helper-message {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: rgba(161, 227, 216, 0.2);
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+  }
+  
+  .helper-message p {
+    color: var(--dark);
+    margin: 0;
+    font-size: 0.9rem;
+  }

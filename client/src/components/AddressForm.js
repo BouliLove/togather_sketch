@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import SketchContainer from './SketchContainer';
 import '../styles/AddressForm.css';
 
@@ -23,6 +23,72 @@ function AddressForm({
   onSubmit,
   loading
 }) {
+  // Create refs for input fields to attach autocomplete
+  const inputRefs = useRef({});
+
+  // Set up Google Places Autocomplete for address fields
+  useEffect(() => {
+    if (!window.google || !window.google.maps || !window.google.maps.places) {
+      console.error('Google Maps Places API not loaded');
+      return;
+    }
+
+    // Setup autocomplete for each input field
+    locations.forEach(location => {
+      const inputRef = inputRefs.current[location.id];
+      if (!inputRef) return;
+
+      // Clear any existing autocomplete instances
+      if (inputRef.autocomplete) {
+        // Clean up any event listeners
+        window.google.maps.event.clearInstanceListeners(inputRef.autocomplete);
+        inputRef.autocomplete = null;
+      }
+
+      // Create new autocomplete instance
+      const autocomplete = new window.google.maps.places.Autocomplete(inputRef, {
+        componentRestrictions: { country: 'fr' }, // Restrict to France
+        fields: ['address_components', 'formatted_address', 'geometry'],
+        types: ['address'],
+        bounds: new window.google.maps.LatLngBounds(
+          new window.google.maps.LatLng(48.8156, 2.2240), // SW corner of Paris
+          new window.google.maps.LatLng(48.9021, 2.4699)  // NE corner of Paris
+        ),
+        strictBounds: true
+      });
+
+      // Store the autocomplete instance
+      inputRef.autocomplete = autocomplete;
+
+      // Handle place selection
+      autocomplete.addListener('place_changed', () => {
+        const place = autocomplete.getPlace();
+        
+        if (!place.geometry) {
+          console.warn("No geometry returned for this place");
+          return;
+        }
+
+        // Update location with the selected address and its geocoded position
+        onLocationChange(location.id, 'address', place.formatted_address);
+        onLocationChange(location.id, 'geocoded', {
+          lat: place.geometry.location.lat(),
+          lng: place.geometry.location.lng()
+        });
+      });
+    });
+
+    // Cleanup function
+    return () => {
+      // Remove listeners when component unmounts
+      Object.values(inputRefs.current).forEach(ref => {
+        if (ref && ref.autocomplete) {
+          window.google.maps.event.clearInstanceListeners(ref.autocomplete);
+        }
+      });
+    };
+  }, [locations, onLocationChange]);
+
   return (
     <SketchContainer className="form-container">
       <h2 className="form-title">
@@ -41,6 +107,7 @@ function AddressForm({
             </div>
             <div className="address-input-container">
               <input 
+                ref={el => inputRefs.current[location.id] = el}
                 type="text" 
                 className="address-input sketch-input" 
                 placeholder="Enter address in Paris"
