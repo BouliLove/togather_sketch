@@ -1,0 +1,102 @@
+/* Base styles */
+:root {
+    --primary: #a1e3d8;
+    --secondary: #b5e8c3;
+    --accent: #f8c885;
+    --light: #f9f7f3;
+    --dark: #435058;
+    --error: #ff6b6b;
+    --success: #88d498;
+    --sketch-color: var(--dark);
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: "Nunito", -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: var(--light);
+    color: var(--dark);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    position: relative;
+  }
+  
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAUVBMVEWFhYWDg4N3d3dtbW17e3t1dXWBgYGHh4d5eXlzc3OLi4ubm5uVlZWPj4+NjY19fX2JiYl/f39ra2uRkZGZmZlpaWmXl5dvb29xcXGTk5NnZ2c4zIgLAAAA20lEQVR4nO3VbUeDMBCG4QsEQnkRAbVq//+PXQJssloMzjvz5DuXlRMqCvmXKLOsJOcS2YpNnKXFfRgGF2NuBDmpJAaF1AyjSEJikMhCqtAYJLKQOjQGiTykCI1BIg/JQ2OQKEIm0BgkCpAoVk+kAGnSdtqkIpBN925S00B0JRJtIoIYJFpEB7GqSXRVEREc2iK6tEV0aIvo0BbRpS2iQ1tEl7aIDm0RXdoiOrRFdGmL6NAW0aUtokNbRJe2iA5tEV3aIjq0RXRpi+jQFtGlLaJDW0SXPnlEp7YOj77WVeUGOyIX9wAAAABJRU5ErkJggg==");
+    opacity: 0.05;
+  }
+  
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 1rem;
+  }
+  
+  /* Sketch/Rough.js style */
+  .sketch-container {
+    position: relative;
+  }
+  
+  .sketch-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 2px solid var(--sketch-color);
+    border-radius: inherit;
+    border-color: var(--sketch-color);
+    box-sizing: border-box;
+    z-index: -1;
+  }
+  
+  /* Form elements */
+  input, select, button {
+    font-family: "Nunito", -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  
+  .btn {
+    cursor: pointer;
+    border: 2px solid var(--dark);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+  }
+  
+  .btn-primary {
+    background-color: var(--accent);
+    color: var(--dark);
+  }
+  
+  .btn-primary:hover {
+    background-color: var(--secondary);
+  }
+  
+  .btn-secondary {
+    background-color: var(--light);
+    color: var(--dark);
+  }
+  
+  .btn-secondary:hover {
+    background-color: var(--secondary);
+  }
+  
+  .btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }

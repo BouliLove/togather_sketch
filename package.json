@@ -1,0 +1,34 @@
+{
+    "name": "togather_sketch",
+    "version": "1.0.0",
+    "description": "Find the fairest meeting point between multiple people",
+    "main": "server/server.js",
+    "scripts": {
+      "start": "node server/server.js",
+      "server": "nodemon server/server.js",
+      "client": "cd client && npm start",
+      "dev": "concurrently \"npm run server\" \"npm run client\"",
+      "install-all": "npm install && cd client && npm install",
+      "heroku-postbuild": "cd client && npm install && npm run build"
+    },
+    "keywords": [
+      "meeting",
+      "maps",
+      "geolocation"
+    ],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+      "axios": "^0.27.2",
+      "cors": "^2.8.5",
+      "dotenv": "^16.0.3",
+      "express": "^4.18.2"
+    },
+    "devDependencies": {
+      "concurrently": "^7.6.0",
+      "nodemon": "^2.0.20"
+    },
+    "engines": {
+      "node": "16.x"
+    }
+  }
