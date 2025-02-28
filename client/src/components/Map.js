@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import SketchContainer from './SketchContainer';
 import '../styles/Map.css';
 
 function Map({ center, markers = [] }) {
@@ -99,7 +100,7 @@ function Map({ center, markers = [] }) {
   }, [center, markers]);
   
   return (
-    <div className="map-container sketch-container">
+    <SketchContainer className="map-container">
       <div ref={mapRef} className="map"></div>
       
       {markers.length === 0 && (
@@ -118,7 +119,7 @@ function Map({ center, markers = [] }) {
           <p>Map will display here with all locations</p>
         </div>
       )}
-    </div>
+    </SketchContainer>
   );
 }
 

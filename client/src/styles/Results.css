@@ -1,0 +1,122 @@
+.results-container {
+    background-color: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  }
+  
+  .results-title {
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+    margin-top: 0;
+    margin-bottom: 1.2rem;
+    color: var(--dark);
+  }
+  
+  .results-title svg {
+    margin-right: 0.5rem;
+    color: var(--success);
+  }
+  
+  .result-address {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 1.5rem;
+    padding: 0.75rem;
+    background-color: rgba(161, 227, 216, 0.2);
+    border-radius: 8px;
+    border-left: 4px solid var(--primary);
+  }
+  
+  .result-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .stat-card {
+    background-color: var(--light);
+    padding: 0.75rem;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid rgba(67, 80, 88, 0.1);
+  }
+  
+  .stat-label {
+    font-size: 0.8rem;
+    color: var(--dark);
+    opacity: 0.8;
+    margin-bottom: 0.25rem;
+  }
+  
+  .stat-value {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--dark);
+  }
+  
+  .travel-details {
+    margin-top: 1.5rem;
+  }
+  
+  .travel-details h3 {
+    font-size: 1.1rem;
+    color: var(--dark);
+    margin-bottom: 1rem;
+  }
+  
+  .travel-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .travel-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(67, 80, 88, 0.1);
+  }
+  
+  .travel-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+  
+  .travel-point {
+    margin-right: 1rem;
+  }
+  
+  .point-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    background-color: var(--accent);
+    color: var(--dark);
+    border-radius: 50%;
+    font-weight: bold;
+  }
+  
+  .travel-info {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .travel-time {
+    font-weight: 700;
+    color: var(--dark);
+  }
+  
+  .travel-mode {
+    font-size: 0.9rem;
+    color: var(--dark);
+    opacity: 0.8;
+  }

@@ -1,0 +1,202 @@
+.form-container {
+    background-color: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  }
+  
+  .form-title, .venue-type-title {
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+    margin-top: 0;
+    margin-bottom: 1.2rem;
+    color: var(--dark);
+  }
+  
+  .form-title svg, .venue-type-title svg {
+    margin-right: 0.5rem;
+  }
+  
+  .address-row-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .address-number-container {
+    margin-right: 0.75rem;
+  }
+  
+  .address-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    background-color: var(--accent);
+    color: var(--dark);
+    border-radius: 50%;
+    font-weight: bold;
+  }
+  
+  .address-input-container {
+    display: flex;
+    flex: 1;
+    position: relative;
+  }
+  
+  .address-input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: 2px solid var(--dark);
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: var(--light);
+  }
+  
+  .transport-select {
+    width: 3.5rem;
+    margin-left: 0.5rem;
+    padding: 0.75rem 0.5rem;
+    border: 2px solid var(--dark);
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: var(--light);
+    text-align: center;
+  }
+  
+  .remove-button {
+    position: absolute;
+    right: 4.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 107, 107, 0.2);
+    border: none;
+    color: var(--error);
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .remove-button:hover {
+    background-color: rgba(255, 107, 107, 0.4);
+  }
+  
+  .venue-type-container {
+    margin: 1.5rem 0;
+  }
+  
+  .venue-type-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .venue-option {
+    padding: 0.5rem 1rem;
+    background-color: var(--light);
+    border: 2px solid var(--dark);
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .venue-option.active {
+    background-color: var(--accent);
+  }
+  
+  .venue-option:hover:not(.active) {
+    background-color: var(--secondary);
+  }
+  
+  .buttons-container {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .add-address-button, .compute-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: 2px solid var(--dark);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .add-address-button {
+    background-color: var(--light);
+    color: var(--dark);
+  }
+  
+  .add-address-button:hover:not(:disabled) {
+    background-color: var(--secondary);
+  }
+  
+  .compute-button {
+    background-color: var(--accent);
+    color: var(--dark);
+  }
+  
+  .compute-button:hover:not(:disabled) {
+    opacity: 0.9;
+  }
+  
+  .add-address-button svg, .compute-button svg {
+    margin-right: 0.5rem;
+  }
+  
+  .add-address-button:disabled, .compute-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  
+  /* Spinner animation */
+  .spinner {
+    animation: rotate 2s linear infinite;
+    margin-right: 0.5rem;
+    width: 20px;
+    height: 20px;
+  }
+  
+  .spinner .path {
+    stroke: var(--dark);
+    stroke-linecap: round;
+    animation: dash 1.5s ease-in-out infinite;
+  }
+  
+  @keyframes rotate {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes dash {
+    0% {
+      stroke-dasharray: 1, 150;
+      stroke-dashoffset: 0;
+    }
+    50% {
+      stroke-dasharray: 90, 150;
+      stroke-dashoffset: -35;
+    }
+    100% {
+      stroke-dasharray: 90, 150;
+      stroke-dashoffset: -124;
+    }
+  }

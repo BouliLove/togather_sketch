@@ -1,4 +1,5 @@
 import React from 'react';
+import SketchContainer from './SketchContainer';
 import '../styles/AddressForm.css';
 
 const VENUE_TYPES = [
@@ -23,7 +24,7 @@ function AddressForm({
   loading
 }) {
   return (
-    <div className="form-container sketch-container">
+    <SketchContainer className="form-container">
       <h2 className="form-title">
         <svg width="24" height="24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24">
           <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
@@ -96,7 +97,7 @@ function AddressForm({
         <div className="buttons-container">
           <button 
             type="button" 
-            className="add-address-button sketch-button"
+            className="add-address-button"
             onClick={onAddLocation}
             disabled={locations.length >= 10 || loading}
           >
@@ -110,7 +111,7 @@ function AddressForm({
           
           <button 
             type="submit" 
-            className="compute-button sketch-button"
+            className="compute-button"
             disabled={loading}
           >
             {loading ? (
@@ -133,7 +134,7 @@ function AddressForm({
           </button>
         </div>
       </form>
-    </div>
+    </SketchContainer>
   );
 }
 

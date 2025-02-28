@@ -1,9 +1,10 @@
 import React from 'react';
+import SketchContainer from './SketchContainer';
 import '../styles/Results.css';
 
 function Results({ results }) {
   return (
-    <div className="results-container sketch-container">
+    <SketchContainer className="results-container">
       <h2 className="results-title">
         <svg width="24" height="24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24">
           <path d="m9 11 3 3L22 4"></path>
@@ -57,7 +58,7 @@ function Results({ results }) {
           ))}
         </ul>
       </div>
-    </div>
+    </SketchContainer>
   );
 }
 
